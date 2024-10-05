@@ -121,7 +121,7 @@ sous_menu_scans(){
 
             *) 
             clear
-            echo "Choix invalide. Essayez de nouveau."
+            echo "Choix invalide. Essayez de nouveau :"
             ;;
         esac
     done
@@ -129,7 +129,6 @@ sous_menu_scans(){
 
 sous_menu_detection(){
     while true; do
-        #clear
         echo "1. Activer/Desactiver la detection OS (actuellement $detect_os)"
         echo "2. Activer/Desactiver la detectionn des services et logiciels (actuellement $detect_version)"
         echo "3. Back"
@@ -137,10 +136,12 @@ sous_menu_detection(){
         case $choix_1 in
 
             1) 
+            clear
             toggle_os_detect
             ;;
 
             2) 
+            clear
             toggle_version_detect
             ;;
 
@@ -150,7 +151,7 @@ sous_menu_detection(){
 
             *) 
             clear
-            echo "Choix invalide. Essayez de nouveau."
+            echo "Choix invalide. Essayez de nouveau :"
             ;;
         esac
     done
@@ -158,7 +159,6 @@ sous_menu_detection(){
 
 sous_menu_planification(){
     while true; do
-        clear
         echo "1. WIP"
         echo "2. WIP"
         echo "3. WIP"
@@ -167,14 +167,17 @@ sous_menu_planification(){
         case $choix_1 in
 
             1) 
+            clear
             echo "WIP" #A Faire
             ;;
 
             2) 
+            clear
             cho "WIP" #A Faire
             ;;
 
             3) 
+            clear
             echo "WIP" #A Faire
             ;;
 
@@ -185,7 +188,7 @@ sous_menu_planification(){
 
             *) 
             clear
-            echo "Choix invalide. Essayez de nouveau."
+            echo "Choix invalide. Essayez de nouveau :"
             ;;
         esac
     done
@@ -202,19 +205,23 @@ while true; do
     case $choix in
 
         1) 
+        clear
         sous_menu_scans
         ;;
 
         2)
+        clear
         sous_menu_detection
         ;;
 
         3)
+        clear
         sous_menu_planification
         ;;
 
         4) 
-        echo "Sortie du programme."
+        clear
+        echo "Sortie du programme..."
         sleep 1
         clear
         exit
@@ -222,7 +229,7 @@ while true; do
 
         *) 
         clear
-        echo "Choix invalide. Essayez de nouveau."
+        echo "Choix invalide. Essayez de nouveau :"
         ;;
     esac
 done
