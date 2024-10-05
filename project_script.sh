@@ -14,23 +14,51 @@ detect_version="off"
 fast_scan(){
     echo "Entrez une adresse ip ou une URL"
     read user_scan
+    if [[ $detect_os == "on" ]]; then 
+        if [[ $detect_version == "on" ]]; then 
+            nmap -o -sV $user_scan
+        else
+            nmap -o $user_scan
+        fi
+    else
+        if [[ $detect_version == "on" ]]; then
+            nmap -sV $user_scan
+        else 
+            nmap -F $user_scan
+        fi
+    fi
+}
+
+full_scan(){
+    echo "Entrez une adresse ip ou une URL"
+    read user_scan
     if [[ -n user_scan  ]]; then
-        nmap -F "$user_scan"
+        nmap -p 1-65535 "$user_scan"
     else 
         echo "Le champs est vide"
     fi
 }
 
-full_scan(){
-    :
-}
-
 custom_scan(){
-    :
+    read -p "Entrez une adresse ip ou une URL : " user_scan
+    read -p "Entrez un ou des ports spécifiques (Ex: 22,80)" ports
+    if [[ $detect_os == "on" ]]; then 
+        if [[ $detect_version == "on" ]]; then 
+            nmap -o -sV $user_scan
+        else
+            nmap -o $user_scan
+        fi
+    else
+        if [[ $detect_version == "on" ]]; then
+            nmap -sV $user_scan
+        else 
+            nmap -p $ports $user_scan
+        fi
+    fi    
 }
 
 toggle_os_detect(){
-    if [[ $detect_os=="off" ]]; then
+    if [[ $detect_os == "off" ]]; then
         detect_os="on"
         echo "Detection d'OS active."
     else
@@ -40,7 +68,7 @@ toggle_os_detect(){
 }
 
 toggle_version_detect(){
-    if [[ $detect_version=="off" ]]; then
+    if [[ $detect_version == "off" ]]; then
         detect_version="on"
         echo "Detection des services et versions logiciel active."
     else
@@ -64,26 +92,26 @@ multiple_scan(){
 sous_menu_scans(){
     while true; do
         #clear
-        echo "1. Faire un scan rapide"
-        echo "2. WIP"
-        echo "3. WIP"
+        echo "1. Scan rapide"
+        echo "2. Scan complet"
+        echo "3. Scan personalise"
         echo "4. Back"
         read -p "Choisissez une option : " choix_1
         case $choix_1 in
 
             1) 
             clear
-            fast_scan #A Faire
+            fast_scan
             ;;
 
             2) 
             clear
-            full_scan #A Faire
+            full_scan
             ;;
 
             3) 
             clear
-            custom_scan #A Faire
+            custom_scan
             ;;
 
             4) 
@@ -101,7 +129,7 @@ sous_menu_scans(){
 
 sous_menu_detection(){
     while true; do
-        clear
+        #clear
         echo "1. Activer/Desactiver la detection OS (actuellement $detect_os)"
         echo "2. Activer/Desactiver la detectionn des services et logiciels (actuellement $detect_version)"
         echo "3. Back"
@@ -109,11 +137,11 @@ sous_menu_detection(){
         case $choix_1 in
 
             1) 
-            echo "WIP" #A Faire
+            toggle_os_detect
             ;;
 
             2) 
-            echo "WIP" #A Faire
+            toggle_version_detect
             ;;
 
             3) 
@@ -162,6 +190,7 @@ sous_menu_planification(){
         esac
     done
 }
+
 
 while true; do
     echo "1. Tous les scans"
