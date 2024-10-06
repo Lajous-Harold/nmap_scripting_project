@@ -44,13 +44,13 @@ custom_scan(){
     read -p "Entrez un ou des ports spécifiques (Ex: 22,80)" ports
     if [[ $detect_os == "on" ]]; then 
         if [[ $detect_version == "on" ]]; then 
-            nmap -O -sV $ports $user_scan
+            nmap -O -sV -p $ports $user_scan
         else
-            nmap -O $ports $user_scan
+            nmap -O -p $ports $user_scan
         fi
     else
         if [[ $detect_version == "on" ]]; then
-            nmap -sV $ports $user_scan
+            nmap -sV -p $ports $user_scan
         else 
             nmap -p $ports $user_scan
         fi
@@ -70,10 +70,10 @@ toggle_os_detect(){
 toggle_version_detect(){
     if [[ $detect_version == "off" ]]; then
         detect_version="on"
-        echo "Detection des services et versions logiciel active."
+        echo "Detection des services et versions logiciel activée."
     else
         detect_version="off"
-        echo "Detection des services et versions logiciel desactive."
+        echo "Detection des services et versions logiciels desactivée."
     fi
 }
 
@@ -94,7 +94,7 @@ sous_menu_scans(){
         #clear
         echo "1. Scan rapide"
         echo "2. Scan complet"
-        echo "3. Scan personalise"
+        echo "3. Scan personalisé"
         echo "4. Back"
         read -p "Choisissez une option : " choix_scan
         case $choix_scan in
@@ -129,8 +129,8 @@ sous_menu_scans(){
 
 sous_menu_detection(){
     while true; do
-        echo "1. Activer/Desactiver la detection OS (actuellement $detect_os)"
-        echo "2. Activer/Desactiver la detectionn des services et logiciels (actuellement $detect_version)"
+        echo "1. Activer/Désactiver la detection OS (actuellement $detect_os)"
+        echo "2. Activer/Désactiver la détection des services et logiciels (actuellement $detect_version)"
         echo "3. Back"
         read -p "Choisissez une option : " choix_detect
         case $choix_detect in
@@ -197,10 +197,10 @@ sous_menu_planification(){
 
 while true; do
     echo "1. Tous les scans"
-    echo "2. Option de detection des OS, services et versions logiciels"
+    echo "2. Option de détection des OS, services et versions logiciels"
     echo "3. Planification des scans [WIP]"
     echo "4. Quit"
-    read -p "Choisissez une option par son num2ro associe: " choix 
+    read -p "Choisissez une option par son numéro associé: " choix 
 
     case $choix in
 
