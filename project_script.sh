@@ -16,9 +16,9 @@ fast_scan(){
     read user_scan
     if [[ $detect_os == "on" ]]; then 
         if [[ $detect_version == "on" ]]; then 
-            nmap -o -sV $user_scan
+            nmap -O -sV $user_scan
         else
-            nmap -o $user_scan
+            nmap -O $user_scan
         fi
     else
         if [[ $detect_version == "on" ]]; then
@@ -32,7 +32,7 @@ fast_scan(){
 full_scan(){
     echo "Entrez une adresse ip ou une URL"
     read user_scan
-    if [[ -n user_scan  ]]; then
+    if [[ -n $user_scan  ]]; then
         nmap -p 1-65535 "$user_scan"
     else 
         echo "Le champs est vide"
@@ -44,13 +44,13 @@ custom_scan(){
     read -p "Entrez un ou des ports spécifiques (Ex: 22,80)" ports
     if [[ $detect_os == "on" ]]; then 
         if [[ $detect_version == "on" ]]; then 
-            nmap -o -sV $user_scan
+            nmap -O -sV $ports $user_scan
         else
-            nmap -o $user_scan
+            nmap -O $ports $user_scan
         fi
     else
         if [[ $detect_version == "on" ]]; then
-            nmap -sV $user_scan
+            nmap -sV $ports $user_scan
         else 
             nmap -p $ports $user_scan
         fi
@@ -96,8 +96,8 @@ sous_menu_scans(){
         echo "2. Scan complet"
         echo "3. Scan personalise"
         echo "4. Back"
-        read -p "Choisissez une option : " choix_1
-        case $choix_1 in
+        read -p "Choisissez une option : " choix_scan
+        case $choix_scan in
 
             1) 
             clear
@@ -132,8 +132,8 @@ sous_menu_detection(){
         echo "1. Activer/Desactiver la detection OS (actuellement $detect_os)"
         echo "2. Activer/Desactiver la detectionn des services et logiciels (actuellement $detect_version)"
         echo "3. Back"
-        read -p "Choisissez une option : " choix_1
-        case $choix_1 in
+        read -p "Choisissez une option : " choix_detect
+        case $choix_detect in
 
             1) 
             clear
@@ -163,8 +163,8 @@ sous_menu_planification(){
         echo "2. WIP"
         echo "3. WIP"
         echo "4. Back"
-        read -p "Choisissez une option : " choix_1
-        case $choix_1 in
+        read -p "Choisissez une option : " choix_plan
+        case $choix_plan in
 
             1) 
             clear
@@ -173,7 +173,7 @@ sous_menu_planification(){
 
             2) 
             clear
-            cho "WIP" #A Faire
+            echo "WIP" #A Faire
             ;;
 
             3) 
@@ -200,7 +200,7 @@ while true; do
     echo "2. Option de detection des OS, services et versions logiciels"
     echo "3. Planification des scans [WIP]"
     echo "4. Quit"
-    read -p "Choisissez une option : " choix 
+    read -p "Choisissez une option par son num2ro associe: " choix 
 
     case $choix in
 
