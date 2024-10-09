@@ -8,6 +8,8 @@
 
 #fonction 6 :
 
+source ./scripts/cron.sh
+
 detect_os="off"
 detect_version="off"
 
@@ -89,9 +91,63 @@ multiple_scan(){
     :
 }
 
+planifier_scan(){
+    echo "Choisissez la fréquence de planification :"
+    echo "1. Quotidien"
+    echo "2. Hebdomadaire"
+    echo "3. Mensuel"
+    echo "4. Retour"
+    read -p "Choisissez une option : " choix_planif
+
+    case $choix_planif in
+        1) 
+        echo "Planification quotidienne."
+        echo "Entrez l'adresse IP ou URL à scanner :"
+        read user_scan
+        echo "Entrez l'adresse email pour recevoir les rapports :"
+        read user_email
+        # Ajouter une tâche cron pour un scan quotidien à 2h du matin
+        (crontab -l 2>/dev/null; echo "0 2 * * * /path/to/nmap_scan.sh $user_scan $user_email") | crontab -
+        echo "Scan quotidien planifié à 2h du matin."
+        ;;
+
+        2) 
+        echo "Planification hebdomadaire."
+        echo "Entrez l'adresse IP ou URL à scanner :"
+        read user_scan
+        echo "Entrez l'adresse email pour recevoir les rapports :"
+        read user_email
+        # Ajouter une tâche cron pour un scan hebdomadaire chaque lundi à 2h du matin
+        (crontab -l 2>/dev/null; echo "0 2 * * 1 /path/to/nmap_scan.sh $user_scan $user_email") | crontab -
+        echo "Scan hebdomadaire planifié chaque lundi à 2h du matin."
+        ;;
+
+        3) 
+        echo "Planification mensuelle."
+        echo "Entrez l'adresse IP ou URL à scanner :"
+        read user_scan
+        echo "Entrez l'adresse email pour recevoir les rapports :"
+        read user_email
+        # Ajouter une tâche cron pour un scan mensuel le 1er de chaque mois à 2h du matin
+        (crontab -l 2>/dev/null; echo "0 2 1 * * ./scripts/cron.sh $user_scan $user_email") | crontab -
+        echo "Scan mensuel planifié le 1er de chaque mois à 2h du matin."
+        ;;
+
+        4)
+        clear
+        return
+        ;;
+
+        *)
+        clear
+        echo "Choix invalide. Réessayez."
+        planifier_scan
+        ;;
+    esac
+}
+
 sous_menu_scans(){
     while true; do
-        #clear
         echo "1. Scan rapide"
         echo "2. Scan complet"
         echo "3. Scan personalisé"
@@ -159,37 +215,28 @@ sous_menu_detection(){
 
 sous_menu_planification(){
     while true; do
-        echo "1. WIP"
-        echo "2. WIP"
-        echo "3. WIP"
-        echo "4. Back"
+        echo "1. Planifier un scan"
+        echo "2. Voir les scans planifiés"
+        echo "3. Retour"
         read -p "Choisissez une option : " choix_plan
+
         case $choix_plan in
-
             1) 
-            clear
-            echo "WIP" #A Faire
-            ;;
-
-            2) 
-            clear
-            echo "WIP" #A Faire
-            ;;
-
+                clear
+                planifier_scan
+                ;;
+            2)
+                clear
+                crontab -l
+                ;;
             3) 
-            clear
-            echo "WIP" #A Faire
-            ;;
-
-            4) 
-            clear
-            break
-            ;;
-
+                clear
+                break
+                ;;
             *) 
-            clear
-            echo "Choix invalide. Essayez de nouveau :"
-            ;;
+                clear
+                echo "Choix invalide. Essayez de nouveau."
+                ;;
         esac
     done
 }
