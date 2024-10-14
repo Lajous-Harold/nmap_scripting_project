@@ -8,11 +8,14 @@
 
 #fonction 6 :
 
+#Linked files
 source ./scripts/cron.sh
 
+#Variable
 detect_os="off"
 detect_version="off"
 
+#Fonction permettant d'effectuer un scan basique des 1000 premiers ports sur une IP ou URL prenant en compte les paramètres de detection donnés par l'utilisateur
 fast_scan(){
     echo "Entrez une adresse ip ou une URL"
     read user_scan
@@ -31,6 +34,7 @@ fast_scan(){
     fi
 }
 
+#Fonction permettant d'effectuer un scan sur tous les ports d'une IP ou URL
 full_scan(){
     echo "Entrez une adresse ip ou une URL"
     read user_scan
@@ -40,7 +44,7 @@ full_scan(){
         echo "Le champs est vide"
     fi
 }
-
+#Fonction permettant d'effectuer un scan d'une IP ou URL prenant en compte les paramètres de detection et ports donnés par l'utilisateur
 custom_scan(){
     read -p "Entrez une adresse ip ou une URL : " user_scan
     read -p "Entrez un ou des ports spécifiques (Ex: 22,80)" ports
@@ -59,6 +63,7 @@ custom_scan(){
     fi    
 }
 
+#Fonction permettant à l'utilisateur d'activer ou non la detection des OS dans certains scans
 toggle_os_detect(){
     if [[ $detect_os == "off" ]]; then
         detect_os="on"
@@ -69,6 +74,7 @@ toggle_os_detect(){
     fi
 }
 
+#Fonction permettant à l'utilisateur d'activer ou non la detection des services et versions logiciel dans certains scans
 toggle_version_detect(){
     if [[ $detect_version == "off" ]]; then
         detect_version="on"
@@ -91,6 +97,7 @@ multiple_scan(){
     :
 }
 
+#Menu pour planifier des scans avec cron et l'envoi des rapports par mail
 planifier_scan(){
     echo "Choisissez la fréquence de planification :"
     echo "1. Quotidien"
@@ -107,7 +114,7 @@ planifier_scan(){
         echo "Entrez l'adresse email pour recevoir les rapports :"
         read user_email
         # Ajouter une tâche cron pour un scan quotidien à 2h du matin
-        (crontab -l 2>/dev/null; echo "0 2 * * * /path/to/nmap_scan.sh $user_scan $user_email") | crontab -
+        (crontab -l 2>/dev/null; echo "0 2 * * * ./scripts/cron.sh $user_scan $user_email") | crontab -
         echo "Scan quotidien planifié à 2h du matin."
         ;;
 
@@ -118,7 +125,7 @@ planifier_scan(){
         echo "Entrez l'adresse email pour recevoir les rapports :"
         read user_email
         # Ajouter une tâche cron pour un scan hebdomadaire chaque lundi à 2h du matin
-        (crontab -l 2>/dev/null; echo "0 2 * * 1 /path/to/nmap_scan.sh $user_scan $user_email") | crontab -
+        (crontab -l 2>/dev/null; echo "0 2 * * 1 ./scripts/cron.sh $user_scan $user_email") | crontab -
         echo "Scan hebdomadaire planifié chaque lundi à 2h du matin."
         ;;
 
@@ -146,6 +153,7 @@ planifier_scan(){
     esac
 }
 
+#Menu de choix des scans à effectuer manuellement
 sous_menu_scans(){
     while true; do
         echo "1. Scan rapide"
@@ -172,7 +180,7 @@ sous_menu_scans(){
 
             4) 
             clear
-            break
+            return
             ;;
 
             *) 
@@ -183,6 +191,7 @@ sous_menu_scans(){
     done
 }
 
+#Menu d'option des fonctionalités facultatives activables par l'utilisateur
 sous_menu_detection(){
     while true; do
         echo "1. Activer/Désactiver la detection OS (actuellement $detect_os)"
@@ -203,7 +212,7 @@ sous_menu_detection(){
 
             3) 
             clear
-            break;;
+            return;;
 
             *) 
             clear
@@ -213,6 +222,7 @@ sous_menu_detection(){
     done
 }
 
+#Menu de planification permettant de voir les scans planifiés et d'appeler le menu de planification des scans
 sous_menu_planification(){
     while true; do
         echo "1. Planifier un scan"
@@ -231,7 +241,7 @@ sous_menu_planification(){
                 ;;
             3) 
                 clear
-                break
+                return
                 ;;
             *) 
                 clear
@@ -241,7 +251,7 @@ sous_menu_planification(){
     done
 }
 
-
+#Main
 while true; do
     echo "1. Tous les scans"
     echo "2. Option de détection des OS, services et versions logiciels"
