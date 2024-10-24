@@ -36,9 +36,10 @@ Ce projet est un ensemble de scripts Bash automatisant différentes tâches de s
 ## Utilisation
 
 Lancez le script principal :
-```bash
-bash project_script.sh
-
+    ```bash
+    bash project_script.sh
+    ```
+    
 ## Architecture du projet
 
 nmap_scripting_project/
