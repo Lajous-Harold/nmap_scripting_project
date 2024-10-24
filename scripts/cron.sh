@@ -8,5 +8,5 @@ user_email=$2  # Adresse email pour recevoir le rapport
 output_file="./rapports/rapport_nmap_$(date +%F).txt"
 nmap -O -sV $user_scan > $output_file
 
-# Envoyer le rapport par email
+# Envoyer le rapport par email depuis le fichier cree
 mail -s "Rapport Nmap pour $user_scan" $user_email < $output_file

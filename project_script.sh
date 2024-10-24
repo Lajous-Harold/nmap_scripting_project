@@ -130,7 +130,7 @@ planifier_scan(){
         read user_email
         read -p "Entrez une heure de la journee :" heure
         read -p "Entrez une minute de l'heure :" minute
-        (crontab -l 2>/dev/null; echo "${minute} ${heure} * * * ./scripts/cron.sh $user_scan $user_email") | crontab -
+        (crontab -l 2>/dev/null; echo "${minute} ${heure} * * * ./scripts/cron.sh $user_scan $user_email") | crontab - #Passe les horraires donnes en input comme arguments
         echo "Scan test planifié a ${heure}h${minute}."
         ;;
 
