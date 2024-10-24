@@ -121,14 +121,17 @@ planifier_scan(){
         echo "Scan mensuel planifié le 1er de chaque mois à 2h du matin."
         ;;
 
+        #Tache test pour un horraire defini par l'utilisateur tous les jours de la semaine
         4) 
         echo "Planification test, horraire a changer."
         echo "Entrez l'adresse IP ou URL à scanner :"
         read user_scan
         echo "Entrez l'adresse email pour recevoir les rapports :"
         read user_email
-        (crontab -l 2>/dev/null; echo "30 20 * * * ./scripts/cron.sh $user_scan $user_email") | crontab -
-        echo "Scan mensuel planifié le 1er de chaque mois à 2h du matin."
+        read -p "Entrez une heure de la journee :" heure
+        read -p "Entrez une minute de l'heure :" minute
+        (crontab -l 2>/dev/null; echo "${minute} ${heure} * * * ./scripts/cron.sh $user_scan $user_email") | crontab -
+        echo "Scan test planifié a ${heure}h${minute}."
         ;;
 
         5)
