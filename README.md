@@ -39,14 +39,16 @@ Lancez le script principal :
     ```bash
     bash project_script.sh
     ```
-    
+
 ## Architecture du projet
 
-nmap_scripting_project/
-│
-├── LICENSE
-├── README.md               # Documentation du projet
-├── project_script.sh        # Script principal du projet
-├── scripts/                 # Contient les scripts exécutés automatiquement
-│   └── cron.sh              # Script exécuté par cron pour les scans et l'envoi des rapports
-└── rapports/                # Contient les rapports de scan générés
+    ```
+    nmap_scripting_project/
+    │
+    ├── LICENSE
+    ├── README.md               # Documentation du projet
+    ├── project_script.sh        # Script principal du projet
+    ├── scripts/                 # Contient les scripts exécutés automatiquement
+    │   └── cron.sh              # Script exécuté par cron pour les scans et l'envoi des rapports
+    └── rapports/                # Contient les rapports de scan générés
+    ```
