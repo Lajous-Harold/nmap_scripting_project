@@ -39,6 +39,8 @@ Lancez le script principal :
 ```bash
 bash project_script.sh
 
+## Architecture du projet
+
 nmap_scripting_project/
 │
 ├── LICENSE
