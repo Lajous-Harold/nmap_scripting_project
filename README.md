@@ -38,4 +38,3 @@ Ce projet est un ensemble de scripts Bash automatisant différentes tâches de s
 Lancez le script principal :
     ```bash
     bash project_script.sh
-    ```
