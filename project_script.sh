@@ -83,7 +83,8 @@ planifier_scan(){
     echo "1. Quotidien"
     echo "2. Hebdomadaire"
     echo "3. Mensuel"
-    echo "4. Retour"
+    echo "4. Test"
+    echo "5. Retour"
     read -p "Choisissez une option : " choix_planif
 
     case $choix_planif in
@@ -130,7 +131,7 @@ planifier_scan(){
         echo "Scan mensuel planifié le 1er de chaque mois à 2h du matin."
         ;;
 
-        4)
+        5)
         clear
         return
         ;;
