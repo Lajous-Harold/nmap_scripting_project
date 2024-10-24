@@ -1,12 +1,4 @@
 #!/bin/bash
-#fonction1 : fast_scan
-#fonction2 : full_scan
-#fonction3 : custom_scan
-
-#fonction 4 : toggle_os_detect
-#fonction 5 : toggle_version_detect
-
-#fonction 6 :
 
 #Linked files
 source ./scripts/cron.sh
@@ -83,18 +75,6 @@ toggle_version_detect(){
         detect_version="off"
         echo "Detection des services et versions logiciels desactivée."
     fi
-}
-
-single_scan(){
-    :
-}
-
-batch_scan(){
-    :
-}
-
-multiple_scan(){
-    :
 }
 
 #Menu pour planifier des scans avec cron et l'envoi des rapports par mail
@@ -227,26 +207,34 @@ sous_menu_planification(){
     while true; do
         echo "1. Planifier un scan"
         echo "2. Voir les scans planifiés"
-        echo "3. Retour"
+        echo "3. Supprimer les planifications crontab"
+        echo "4. Retour"
         read -p "Choisissez une option : " choix_plan
 
         case $choix_plan in
             1) 
-                clear
-                planifier_scan
-                ;;
+            clear
+            planifier_scan
+            ;;
+
             2)
-                clear
-                crontab -l
-                ;;
-            3) 
-                clear
-                return
-                ;;
+            clear
+            crontab -l
+            ;;
+
+            3)
+            clear
+            crontab -r
+            ;;
+            
+            4) 
+            clear
+            return
+            ;;
             *) 
-                clear
-                echo "Choix invalide. Essayez de nouveau."
-                ;;
+            clear
+            echo "Choix invalide. Essayez de nouveau."
+            ;;
         esac
     done
 }
@@ -255,7 +243,7 @@ sous_menu_planification(){
 while true; do
     echo "1. Tous les scans"
     echo "2. Option de détection des OS, services et versions logiciels"
-    echo "3. Planification des scans [WIP]"
+    echo "3. Planification des scans"
     echo "4. Quit"
     read -p "Choisissez une option par son numéro associé: " choix 
 
