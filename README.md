@@ -14,7 +14,7 @@ Ce projet est un ensemble de scripts Bash automatisant différentes tâches de s
 
 1. Clonez ce dépôt :
     ```bash
-    git clone https://github.com/votre_utilisateur/nmap_scripting_project.git
+    git clone https://github.com/Lajous-Harold/nmap_scripting_project
     ```
 
 2. Assurez-vous d'avoir **Nmap** installé :
@@ -51,4 +51,3 @@ Lancez le script principal :
     ├── scripts/                 # Contient les scripts exécutés automatiquement
     │   └── cron.sh              # Script exécuté par cron pour les scans et l'envoi des rapports
     └── rapports/                # Contient les rapports de scan générés
-    ```
