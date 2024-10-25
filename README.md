@@ -27,7 +27,14 @@ Ce projet est un ensemble de scripts Bash automatisant différentes tâches de s
     sudo apt-get install mailutils
     ```
 
-4. Donnez les droits d'exécution aux scripts :
+4. Assurez-vous d'avoir **cron** installé pour la planification des scans :
+    ```bash
+    sudo apt install cron
+    sudo systemctl enable cron
+    sudo systemctl start cron
+    ```
+    
+5. Donnez les droits d'exécution aux scripts :
     ```bash
     chmod +x ./scripts/cron.sh
     chmod +x project_script.sh
